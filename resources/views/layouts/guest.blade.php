@@ -13,7 +13,9 @@
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600;700&family=Open+Sans:wght@400;600&display=swap"
+        rel="stylesheet">
 
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
@@ -83,7 +85,7 @@
                     </div>
                     <a href="contact.html" class="nav-item nav-link">Contact</a>
                 </div>
-                <a href="" class="btn btn-primary py-2 px-4 d-none d-lg-block">Join Us</a>
+                <a href="{{ route('login') }}" class="btn btn-primary py-2 px-4">Masuk</a>
             </div>
         </nav>
     </div>
@@ -99,7 +101,12 @@
                     <a href="index.html" class="navbar-brand">
                         <h1 class="mt-n2 text-uppercase text-white"><i class="fa fa-book-reader mr-3"></i>Matahari</h1>
                     </a>
-                    <p class="m-0">Sekolah Lansia “Matahari” di Desa Sridadi Sirampog didirikan pada 22 juli tahun 2022 Sebagai salah satu kepedulian dari Dinas Pemberdayaan Perempuan Perlindungan Anak Pengendalian Penduduk dan Keluarga Berencana (DP3KB) Kabupaten Brebes melalui kurikulum dimensi lansia Tangguh diantaranya adalah antara lain dimensi spiritual, dimensi intelektual, dimensi fisik, dimensi emosional, dimensi sosial kemasyarakatan, dimensi profesional dan vokasional, dan dimensi lingkungan, sehingga lansia diharapkan menjadi pintar.</p>
+                    <p class="m-0">Sekolah Lansia “Matahari” di Desa Sridadi Sirampog didirikan pada 22 juli tahun
+                        2022 Sebagai salah satu kepedulian dari Dinas Pemberdayaan Perempuan Perlindungan Anak
+                        Pengendalian Penduduk dan Keluarga Berencana (DP3KB) Kabupaten Brebes melalui kurikulum dimensi
+                        lansia Tangguh diantaranya adalah antara lain dimensi spiritual, dimensi intelektual, dimensi
+                        fisik, dimensi emosional, dimensi sosial kemasyarakatan, dimensi profesional dan vokasional, dan
+                        dimensi lingkungan, sehingga lansia diharapkan menjadi pintar.</p>
                 </div>
             </div>
             <div class="row">
@@ -118,35 +125,47 @@
                 <div class="col-md-4 mb-5">
                     <h3 class="text-white mb-4">Our Courses</h3>
                     <div class="d-flex flex-column justify-content-start">
-                        <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Web Design</a>
-                        <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Apps Design</a>
-                        <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Marketing</a>
-                        <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Research</a>
+                        <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Web
+                            Design</a>
+                        <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Apps
+                            Design</a>
+                        <a class="text-white-50 mb-2" href="#"><i
+                                class="fa fa-angle-right mr-2"></i>Marketing</a>
+                        <a class="text-white-50 mb-2" href="#"><i
+                                class="fa fa-angle-right mr-2"></i>Research</a>
                         <a class="text-white-50" href="#"><i class="fa fa-angle-right mr-2"></i>SEO</a>
                     </div>
                 </div>
                 <div class="col-md-4 mb-5">
                     <h3 class="text-white mb-4">Quick Links</h3>
                     <div class="d-flex flex-column justify-content-start">
-                        <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Privacy Policy</a>
-                        <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Terms & Condition</a>
-                        <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Regular FAQs</a>
-                        <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Help & Support</a>
+                        <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Privacy
+                            Policy</a>
+                        <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Terms &
+                            Condition</a>
+                        <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Regular
+                            FAQs</a>
+                        <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Help &
+                            Support</a>
                         <a class="text-white-50" href="#"><i class="fa fa-angle-right mr-2"></i>Contact</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="container-fluid bg-dark text-white-50 border-top py-4" style="border-color: rgba(256, 256, 256, .1) !important;">
+    <div class="container-fluid bg-dark text-white-50 border-top py-4"
+        style="border-color: rgba(256, 256, 256, .1) !important;">
         <div class="container">
             <div class="row">
                 <div class="col-md-6 text-center text-md-left mb-3 mb-md-0">
-                    <p class="m-0">Copyright &copy; <a class="text-white" href="https://amikompurwokerto.ac.id">Universitas Amikom Purwokerto</a>. All Rights Reserved.
+                    <p class="m-0">Copyright &copy; <a class="text-white"
+                            href="https://amikompurwokerto.ac.id">Universitas Amikom Purwokerto</a>. All Rights
+                        Reserved.
                     </p>
                 </div>
                 <div class="col-md-6 text-center text-md-right">
-                    <p class="m-0">Developed by <a class="text-white" href="https://galihbagaskoro.my.id">Galih Bagaskoro</a></p>
+                    <p class="m-0">Developed by <a class="text-white" href="https://galihbagaskoro.my.id">Galih
+                            Bagaskoro</a></p>
                 </div>
             </div>
         </div>
@@ -155,7 +174,8 @@
 
 
     <!-- Back to Top -->
-    <a href="#" class="btn btn-lg btn-primary rounded-0 btn-lg-square back-to-top"><i class="fa fa-angle-double-up"></i></a>
+    <a href="#" class="btn btn-lg btn-primary rounded-0 btn-lg-square back-to-top"><i
+            class="fa fa-angle-double-up"></i></a>
 
 
     <!-- JavaScript Libraries -->
