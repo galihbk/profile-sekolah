@@ -19,6 +19,7 @@ class UserSeeder extends Seeder
             'email' => 'admin@example.com',
             'password' => Hash::make('password'), // Ganti dengan password yang kuat
             'email_verified_at' => now(), // Opsional: untuk menandai email sudah diverifikasi
+            'role' => 'admin',
         ]);
     }
 }

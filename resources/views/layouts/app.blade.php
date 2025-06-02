@@ -11,6 +11,7 @@
     <link href="{{ asset('assets-admin/plugins/metismenu/css/metisMenu.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets-admin/css/pace.min.css') }}" rel="stylesheet" />
     <script src="{{ asset('assets-admin/js/pace.min.js') }}"></script>
+    <link href="{{ asset('assets-admin/plugins/datatable/css/dataTables.bootstrap5.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets-admin/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets-admin/css/bootstrap-extended.css') }}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
@@ -46,7 +47,7 @@
                 </li>
                 <li>
                     <a href="{{ route('users.index') }}">
-                        <div class="parent-icon"><i class='bx bx-home-circle'></i>
+                        <div class="parent-icon"><i class='bx bx-group'></i>
                         </div>
                         <div class="menu-title">Pengguna</div>
                     </a>
@@ -485,7 +486,10 @@
     <script src="{{ asset('assets-admin/plugins/simplebar/js/simplebar.min.js') }}"></script>
     <script src="{{ asset('assets-admin/plugins/metismenu/js/metisMenu.min.js') }}"></script>
     <script src="{{ asset('assets-admin/plugins/perfect-scrollbar/js/perfect-scrollbar.js') }}"></script>
+    <script src="{{ asset('assets-admin/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('assets-admin/plugins/datatable/js/dataTables.bootstrap5.min.js') }}"></script>
     <!--app JS-->
+    @stack('scripts')
     <script src="{{ asset('assets-admin/js/app.js') }}"></script>
 </body>
 
