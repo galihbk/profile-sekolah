@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="assets/images/favicon-32x32.png" type="image/png" />
+    <link rel="icon" href="{{asset('assets/img/LogoSLMatahari.png')}}" type="image/png" />
     <link href="{{ asset('assets-admin/plugins/simplebar/css/simplebar.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets-admin/plugins/perfect-scrollbar/css/perfect-scrollbar.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets-admin/plugins/metismenu/css/metisMenu.min.css') }}" rel="stylesheet" />
@@ -43,6 +43,13 @@
                         <div class="parent-icon"><i class='bx bx-home-circle'></i>
                         </div>
                         <div class="menu-title">Dashboard</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('users.index') }}">
+                        <div class="parent-icon"><i class='bx bx-group'></i>
+                        </div>
+                        <div class="menu-title">Rekam Medis</div>
                     </a>
                 </li>
                 <li>
