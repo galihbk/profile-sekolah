@@ -63,8 +63,9 @@
     <!-- Navbar Start -->
     <div class="container-fluid p-0">
         <nav class="navbar navbar-expand-lg bg-white navbar-light py-3 py-lg-0 px-lg-5">
-            <a href="index.html" class="navbar-brand ml-lg-3">
-                <h1 class="m-0 text-uppercase text-primary"><i class="fa fa-book-reader mr-3"></i>Matahari</h1>
+            <a href="{{route('home')}}" class="navbar-brand ml-lg-3">
+
+                <h3 class="m-0 text-uppercase text-primary"><img src="{{asset('assets/img/LogoSLMatahari.png')}}" alt="" width="40"> Matahari</h3>
             </a>
             <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                 <span class="navbar-toggler-icon"></span>
