@@ -27,32 +27,6 @@
                         <h1 class="display-4">Sekolah Lansia Matahari</h1>
                     </div>
                     <p>Sekolah Lansia “Matahari” di Desa Sridadi Sirampog didirikan pada 22 juli tahun 2022 Sebagai salah satu kepedulian dari Dinas Pemberdayaan Perempuan Perlindungan Anak Pengendalian Penduduk dan Keluarga Berencana (DP3KB) Kabupaten Brebes melalui kurikulum dimensi lansia Tangguh diantaranya adalah antara lain dimensi spiritual, dimensi intelektual, dimensi fisik, dimensi emosional, dimensi sosial kemasyarakatan, dimensi profesional dan vokasional, dan dimensi lingkungan, sehingga lansia diharapkan menjadi pintar.</p>
-                    <div class="row pt-3 mx-0">
-                        <div class="col-3 px-0">
-                            <div class="bg-success text-center p-4">
-                                <h1 class="text-white" data-toggle="counter-up">123</h1>
-                                <h6 class="text-uppercase text-white">Available<span class="d-block">Subjects</span></h6>
-                            </div>
-                        </div>
-                        <div class="col-3 px-0">
-                            <div class="bg-primary text-center p-4">
-                                <h1 class="text-white" data-toggle="counter-up">1234</h1>
-                                <h6 class="text-uppercase text-white">Online<span class="d-block">Courses</span></h6>
-                            </div>
-                        </div>
-                        <div class="col-3 px-0">
-                            <div class="bg-secondary text-center p-4">
-                                <h1 class="text-white" data-toggle="counter-up">123</h1>
-                                <h6 class="text-uppercase text-white">Skilled<span class="d-block">Instructors</span></h6>
-                            </div>
-                        </div>
-                        <div class="col-3 px-0">
-                            <div class="bg-warning text-center p-4">
-                                <h1 class="text-white" data-toggle="counter-up">1234</h1>
-                                <h6 class="text-uppercase text-white">Happy<span class="d-block">Students</span></h6>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
