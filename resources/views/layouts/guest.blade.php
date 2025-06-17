@@ -75,16 +75,7 @@
                     <a href="{{ route('home') }}" class="nav-item nav-link active">Beranda</a>
                     <a href="{{ route('about') }}" class="nav-item nav-link">Tentang Kami</a>
                     <a href="{{ route('gallery') }}" class="nav-item nav-link">Galeri</a>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
-                        <div class="dropdown-menu m-0">
-                            <a href="detail.html" class="dropdown-item">Course Detail</a>
-                            <a href="feature.html" class="dropdown-item">Our Features</a>
-                            <a href="team.html" class="dropdown-item">Instructors</a>
-                            <a href="testimonial.html" class="dropdown-item">Testimonial</a>
-                        </div>
-                    </div>
-                    <a href="contact.html" class="nav-item nav-link">Contact</a>
+                    <a href="{{route('contact')}}" class="nav-item nav-link">Kontak</a>
                 </div>
                 <a href="{{ route('login') }}" class="btn btn-primary py-2 px-4">Masuk</a>
             </div>
@@ -99,79 +90,67 @@
         <div class="container mt-5 pt-5">
             <div class="row">
                 <div class="col-md-12 mb-5">
-                    <a href="index.html" class="navbar-brand">
-                        <h1 class="mt-n2 text-uppercase text-white"><i class="fa fa-book-reader mr-3"></i>Matahari</h1>
+                    <a href="{{ route('home') }}" class="navbar-brand">
+                        <h1 class="mt-n2 text-uppercase text-white">
+                            <img src="{{ asset('assets/img/LogoSLMatahari.png') }}" width="40" alt="Logo"> Matahari
+                        </h1>
                     </a>
-                    <p class="m-0">Sekolah Lansia “Matahari” di Desa Sridadi Sirampog didirikan pada 22 juli tahun
-                        2022 Sebagai salah satu kepedulian dari Dinas Pemberdayaan Perempuan Perlindungan Anak
-                        Pengendalian Penduduk dan Keluarga Berencana (DP3KB) Kabupaten Brebes melalui kurikulum dimensi
-                        lansia Tangguh diantaranya adalah antara lain dimensi spiritual, dimensi intelektual, dimensi
-                        fisik, dimensi emosional, dimensi sosial kemasyarakatan, dimensi profesional dan vokasional, dan
-                        dimensi lingkungan, sehingga lansia diharapkan menjadi pintar.</p>
+                    <p class="m-0">
+                        Sekolah Lansia “Matahari” di Desa Sridadi, Kecamatan Sirampog, Kabupaten Brebes didirikan pada 22 Juli 2022 sebagai bentuk kepedulian dari Dinas DP3KB Kabupaten Brebes. Kami mengusung kurikulum 7 Dimensi Lansia Tangguh: spiritual, intelektual, fisik, emosional, sosial kemasyarakatan, profesional & vokasional, dan lingkungan — menjadikan lansia tetap aktif, bahagia, dan berdaya.
+                    </p>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-4 mb-5">
-                    <h3 class="text-white mb-4">Kontak</h3>
-                    <p><i class="fa fa-map-marker-alt mr-2"></i>123 Street, New York, USA</p>
-                    <p><i class="fa fa-phone-alt mr-2"></i>+012 345 67890</p>
-                    <p><i class="fa fa-envelope mr-2"></i>info@example.com</p>
+                    <h3 class="text-white mb-4">Kontak Kami</h3>
+                    <p><i class="fa fa-map-marker-alt mr-2"></i>Desa Sridadi, Kec. Sirampog, Kab. Brebes, Jawa Tengah</p>
+                    <p><i class="fa fa-phone-alt mr-2"></i>+62 812-3456-7890</p>
+                    <p><i class="fa fa-envelope mr-2"></i>info@sekolahlansiamatahari.or.id</p>
                     <div class="d-flex justify-content-start mt-4">
-                        <a class="text-white mr-4" href="#"><i class="fab fa-2x fa-twitter"></i></a>
                         <a class="text-white mr-4" href="#"><i class="fab fa-2x fa-facebook-f"></i></a>
-                        <a class="text-white mr-4" href="#"><i class="fab fa-2x fa-linkedin-in"></i></a>
-                        <a class="text-white" href="#"><i class="fab fa-2x fa-instagram"></i></a>
+                        <a class="text-white mr-4" href="#"><i class="fab fa-2x fa-instagram"></i></a>
+                        <a class="text-white mr-4" href="#"><i class="fab fa-2x fa-youtube"></i></a>
                     </div>
                 </div>
                 <div class="col-md-4 mb-5">
-                    <h3 class="text-white mb-4">Our Courses</h3>
+                    <h3 class="text-white mb-4">Dimensi Tangguh</h3>
                     <div class="d-flex flex-column justify-content-start">
-                        <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Web
-                            Design</a>
-                        <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Apps
-                            Design</a>
-                        <a class="text-white-50 mb-2" href="#"><i
-                                class="fa fa-angle-right mr-2"></i>Marketing</a>
-                        <a class="text-white-50 mb-2" href="#"><i
-                                class="fa fa-angle-right mr-2"></i>Research</a>
-                        <a class="text-white-50" href="#"><i class="fa fa-angle-right mr-2"></i>SEO</a>
+                        <span class="text-white-50 mb-2"><i class="fa fa-angle-right mr-2"></i>Spiritual</span>
+                        <span class="text-white-50 mb-2"><i class="fa fa-angle-right mr-2"></i>Intelektual</span>
+                        <span class="text-white-50 mb-2"><i class="fa fa-angle-right mr-2"></i>Fisik</span>
+                        <span class="text-white-50 mb-2"><i class="fa fa-angle-right mr-2"></i>Emosional</span>
+                        <span class="text-white-50 mb-2"><i class="fa fa-angle-right mr-2"></i>Sosial Kemasyarakatan</span>
+                        <span class="text-white-50 mb-2"><i class="fa fa-angle-right mr-2"></i>Profesional & Vokasional</span>
+                        <span class="text-white-50"><i class="fa fa-angle-right mr-2"></i>Lingkungan</span>
                     </div>
                 </div>
                 <div class="col-md-4 mb-5">
-                    <h3 class="text-white mb-4">Quick Links</h3>
+                    <h3 class="text-white mb-4">Tautan Cepat</h3>
                     <div class="d-flex flex-column justify-content-start">
-                        <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Privacy
-                            Policy</a>
-                        <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Terms &
-                            Condition</a>
-                        <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Regular
-                            FAQs</a>
-                        <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Help &
-                            Support</a>
-                        <a class="text-white-50" href="#"><i class="fa fa-angle-right mr-2"></i>Contact</a>
+                        <a class="text-white-50 mb-2" href="{{ route('about') }}"><i class="fa fa-angle-right mr-2"></i>Tentang Kami</a>
+                        <a class="text-white-50 mb-2" href="{{ route('gallery') }}"><i class="fa fa-angle-right mr-2"></i>Galeri</a>
+                        <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>FAQ</a>
+                        <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Bantuan</a>
+                        <a class="text-white-50" href=""><i class="fa fa-angle-right mr-2"></i>Kontak</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="container-fluid bg-dark text-white-50 border-top py-4"
-        style="border-color: rgba(256, 256, 256, .1) !important;">
+    <div class="container-fluid bg-dark text-white-50 border-top py-4" style="border-color: rgba(256, 256, 256, .1) !important;">
         <div class="container">
             <div class="row">
                 <div class="col-md-6 text-center text-md-left mb-3 mb-md-0">
-                    <p class="m-0">Copyright &copy; <a class="text-white"
-                            href="https://amikompurwokerto.ac.id">Universitas Amikom Purwokerto</a>. All Rights
-                        Reserved.
-                    </p>
+                    <p class="m-0">&copy; 2025 Sekolah Lansia Matahari. Seluruh hak cipta dilindungi.</p>
                 </div>
                 <div class="col-md-6 text-center text-md-right">
-                    <p class="m-0">Developed by <a class="text-white" href="https://galihbagaskoro.my.id">Galih
-                            Bagaskoro</a></p>
+                    <p class="m-0">Dikembangkan oleh <a class="text-white" href="https://galihbagaskoro.my.id">Galih Bagaskoro</a></p>
                 </div>
             </div>
         </div>
     </div>
     <!-- Footer End -->
+
 
 
     <!-- Back to Top -->

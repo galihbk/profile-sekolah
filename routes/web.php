@@ -10,6 +10,7 @@ use App\Http\Controllers\MedisController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/about', [HomeController::class, 'about'])->name('about');
 Route::get('/gallery', [HomeController::class, 'gallery'])->name('gallery');
+Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
