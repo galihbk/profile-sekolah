@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="color-sidebar sidebarcolor5">
 
 <head>
     <meta charset="utf-8">
@@ -47,7 +47,7 @@
                 </li>
                 <li>
                     <a href="{{ route('medis') }}">
-                        <div class="parent-icon"><i class='bx bx-group'></i>
+                        <div class="parent-icon"><i class='bx bx-book-heart'></i>
                         </div>
                         <div class="menu-title">Data Medis</div>
                     </a>
@@ -61,7 +61,7 @@
                 </li>
                 <li>
                     <a href="{{ route('diagnosa') }}">
-                        <div class="parent-icon"><i class='bx bx-group'></i>
+                        <div class="parent-icon"><i class='bx bx-book-content'></i>
                         </div>
                         <div class="menu-title">Data Diagnosa</div>
                     </a>

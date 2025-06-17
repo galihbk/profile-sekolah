@@ -33,7 +33,7 @@
                                 <i class="fa fa-2x fa-phone-alt text-white"></i>
                             </div>
                             <div class="mt-n1">
-                                <h4>Telefon</h4>
+                                <h4>Telepon</h4>
                                 <p class="m-0">+012 345 6789</p>
                             </div>
                         </div>

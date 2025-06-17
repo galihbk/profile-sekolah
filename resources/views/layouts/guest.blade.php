@@ -131,7 +131,7 @@
                         <a class="text-white-50 mb-2" href="{{ route('gallery') }}"><i class="fa fa-angle-right mr-2"></i>Galeri</a>
                         <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>FAQ</a>
                         <a class="text-white-50 mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Bantuan</a>
-                        <a class="text-white-50" href=""><i class="fa fa-angle-right mr-2"></i>Kontak</a>
+                        <a class="text-white-50" href="{{route('contact')}}"><i class="fa fa-angle-right mr-2"></i>Kontak</a>
                     </div>
                 </div>
             </div>
