@@ -18,7 +18,9 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/user', [UserController::class, 'index'])->name('users.index');
+    Route::get('/user/pengajar', [UserController::class, 'pengajar'])->name('users.pengajar');
     Route::get('/user/create', [UserController::class, 'create'])->name('users.create');
+    Route::get('/user/create-pengajar', [UserController::class, 'createPengajar'])->name('users.create-pengajar');
     Route::get('/user/data', [UserController::class, 'data'])->name('users.data');
     Route::get('/users/edit/{id}', [UserController::class, 'edit'])->name('users.edit');
     Route::delete('/users/hapus/{id}', [UserController::class, 'destroy'])->name('users.destroy');

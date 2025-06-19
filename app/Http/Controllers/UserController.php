@@ -16,6 +16,14 @@ class UserController extends Controller
     {
         return view('user.create');
     }
+    public function pengajar()
+    {
+        return view('user.pengajar');
+    }
+    public function createPengajar()
+    {
+        return view('user.create-pengajar');
+    }
     public function store(Request $request)
     {
         $validated = $request->validate([
