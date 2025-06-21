@@ -4,28 +4,16 @@
             <div class="card-title d-flex align-items-center">
                 <div><i class="bx bxs-user me-1 font-22 text-primary"></i>
                 </div>
-                <h5 class="mb-0 text-primary">Tambah Pengguna</h5>
+                <h5 class="mb-0 text-primary">Tambah Pengajar</h5>
             </div>
             <hr>
-            <form class="row g-3" action="{{ route('users.store') }}" method="POST">
+            <form class="row g-3" action="{{ route('users.storePengajar') }}" method="POST">
                 @csrf
 
                 <div class="col-md-6">
                     <label for="fullName" class="block text-sm font-medium text-gray-700 mb-1">Nama Lengkap</label>
                     <input type="text" id="fullName" name="fullName" class="form-control @error('fullName') is-invalid @enderror" value="{{ old('fullName') }}">
                     @error('fullName') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                </div>
-
-                <div class="col-md-6">
-                    <label for="placeOfBirth">Tempat Lahir</label>
-                    <input type="text" id="placeOfBirth" name="placeOfBirth" class="form-control @error('placeOfBirth') is-invalid @enderror" value="{{ old('placeOfBirth') }}">
-                    @error('placeOfBirth') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                </div>
-
-                <div class="col-md-6">
-                    <label for="dateOfBirth">Tanggal Lahir</label>
-                    <input type="date" id="dateOfBirth" name="dateOfBirth" class="form-control @error('dateOfBirth') is-invalid @enderror" value="{{ old('dateOfBirth') }}">
-                    @error('dateOfBirth') <div class="invalid-feedback">{{ $message }}</div> @enderror
                 </div>
 
                 <div class="col-md-6">

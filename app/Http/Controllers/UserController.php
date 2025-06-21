@@ -44,12 +44,50 @@ class UserController extends Controller
             'jenis_kelamin' => $validated['gender'],
             'alamat' => $validated['address'],
         ]);
-        return redirect()->route('users.index')->with('success', 'Pengguna berhasil ditambahkan');
+        return redirect()->route('users.index')->with('success', 'Data lansia berhasil ditambahkan');
+    }
+    public function storePengajar(Request $request)
+    {
+        $validated = $request->validate([
+            'fullName'         => 'required|string|max:255',
+            'gender'           => 'required|in:Laki-laki,Perempuan',
+            'email'            => 'required|email|unique:users,email',
+            'password'         => 'required|min:6|confirmed',
+            'address'          => 'required|string',
+        ]);
+        User::create([
+            'name'     => $validated['fullName'],
+            'email'    => $validated['email'],
+            'password' => bcrypt($validated['password']),
+            'jenis_kelamin' => $validated['gender'],
+            'alamat' => $validated['address'],
+            'role' => 'pengajar',
+        ]);
+        return redirect()->route('users.pengajar')->with('success', 'Pengajar berhasil ditambahkan');
     }
     public function data(Request $request)
     {
         if ($request->ajax()) {
             $data = User::where('role', 'user')->get();
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+                    return '
+                    <a href="' . route('users.edit', $row->id) . '" class="btn btn-sm btn-warning">Edit</a>
+                    <form action="' . route('users.destroy', $row->id) . '" method="POST" style="display:inline-block;">
+                        ' . csrf_field() . method_field('DELETE') . '
+                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm(\'Yakin ingin menghapus?\')">Hapus</button>
+                    </form>
+                ';
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+    }
+    public function dataPengajar(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = User::where('role', 'pengajar')->get();
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {

@@ -38,42 +38,71 @@
             </div>
             <!--navigation-->
             <ul class="metismenu" id="menu">
+
+                {{-- Menu untuk semua role --}}
                 <li>
                     <a href="{{ route('dashboard') }}">
-                        <div class="parent-icon"><i class='bx bx-home-circle'></i>
-                        </div>
+                        <div class="parent-icon"><i class='bx bx-home-circle'></i></div>
                         <div class="menu-title">Dashboard</div>
                     </a>
                 </li>
+
+                {{-- Menu khusus untuk admin --}}
+                @if(Auth::user()->role === 'admin')
                 <li>
                     <a href="{{ route('medis') }}">
-                        <div class="parent-icon"><i class='bx bx-book-heart'></i>
-                        </div>
+                        <div class="parent-icon"><i class='bx bx-book-heart'></i></div>
                         <div class="menu-title">Data Medis</div>
                     </a>
                 </li>
                 <li>
                     <a href="{{ route('users.index') }}">
-                        <div class="parent-icon"><i class='bx bx-group'></i>
-                        </div>
+                        <div class="parent-icon"><i class='bx bx-group'></i></div>
                         <div class="menu-title">Data Lansia</div>
                     </a>
                 </li>
                 <li>
                     <a href="{{ route('users.pengajar') }}">
-                        <div class="parent-icon"><i class='bx bx-group'></i>
-                        </div>
+                        <div class="parent-icon"><i class='bx bx-group'></i></div>
                         <div class="menu-title">Data Pengajar</div>
                     </a>
                 </li>
                 <li>
                     <a href="{{ route('diagnosa') }}">
-                        <div class="parent-icon"><i class='bx bx-book-content'></i>
-                        </div>
+                        <div class="parent-icon"><i class='bx bx-book-content'></i></div>
                         <div class="menu-title">Data Diagnosa</div>
                     </a>
                 </li>
+                @endif
+
+                {{-- Menu untuk pengajar --}}
+                @if(Auth::user()->role === 'pengajar')
+                <li>
+                    <a href="{{ route('materi') }}">
+                        <div class="parent-icon"><i class='bx bx-folder'></i></div>
+                        <div class="menu-title">Data Materi</div>
+                    </a>
+                </li>
+                @endif
+
+                {{-- Menu untuk user --}}
+                @if(Auth::user()->role === 'user')
+                <li>
+                    <a href="{{ route('medis.history') }}">
+                        <div class="parent-icon"><i class='bx bx-history'></i></div>
+                        <div class="menu-title">History Pemeriksaan</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('materi.user') }}">
+                        <div class="parent-icon"><i class='bx bx-folder'></i></div>
+                        <div class="menu-title">Data Materi</div>
+                    </a>
+                </li>
+                @endif
+
             </ul>
+
             <!--end navigation-->
         </div>
         <header>
@@ -121,23 +150,7 @@
                                         </div>
                                     </a>
                                     <div class="header-notifications-list">
-                                        <a class="dropdown-item" href="javascript:;">
-                                            <div class="d-flex align-items-center">
-                                                <div class="notify bg-light-primary text-primary"><i
-                                                        class="bx bx-group"></i>
-                                                </div>
-                                                <div class="flex-grow-1">
-                                                    <h6 class="msg-name">New Customers<span
-                                                            class="msg-time float-end">14 Sec
-                                                            ago</span></h6>
-                                                    <p class="msg-info">5 new user registered</p>
-                                                </div>
-                                            </div>
-                                        </a>
                                     </div>
-                                    <a href="javascript:;">
-                                        <div class="text-center msg-footer">View All Notifications</div>
-                                    </a>
                                 </div>
                             </li>
                             <li class="nav-item dropdown dropdown-large">
@@ -154,24 +167,7 @@
                                         </div>
                                     </a>
                                     <div class="header-message-list">
-                                        <a class="dropdown-item" href="javascript:;">
-                                            <div class="d-flex align-items-center">
-                                                <div class="user-online">
-                                                    <img src="assets/images/avatars/avatar-11.png" class="msg-avatar"
-                                                        alt="user avatar">
-                                                </div>
-                                                <div class="flex-grow-1">
-                                                    <h6 class="msg-name">Johnny Seitz <span
-                                                            class="msg-time float-end">5 days
-                                                            ago</span></h6>
-                                                    <p class="msg-info">All the Lorem Ipsum generators</p>
-                                                </div>
-                                            </div>
-                                        </a>
                                     </div>
-                                    <a href="javascript:;">
-                                        <div class="text-center msg-footer">View All Messages</div>
-                                    </a>
                                 </div>
                             </li>
                         </ul>
@@ -191,8 +187,14 @@
                             <li>
                                 <div class="dropdown-divider mb-0"></div>
                             </li>
-                            <li><a class="dropdown-item" href="javascript:;"><i
-                                        class='bx bx-log-out-circle'></i><span>Logout</span></a>
+                            <li>
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    <i class='bx bx-log-out-circle'></i> <span>Logout</span>
+                                </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
                             </li>
                         </ul>
                     </div>

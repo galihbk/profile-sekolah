@@ -7,12 +7,17 @@ use App\Models\Medis;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Auth;
 
 class MedisController extends Controller
 {
     public function index()
     {
         return view('medis.index');
+    }
+    public function history()
+    {
+        return view('medis.history');
     }
     public function create()
     {
@@ -102,5 +107,17 @@ class MedisController extends Controller
         $users = User::where('name', 'like', "%{$query}%")->get();
 
         return response()->json($users);
+    }
+    public function historyData()
+    {
+        $medis = Medis::where('user_id', Auth::id())->orderBy('created_at', 'desc');
+
+        return DataTables::of($medis)
+            ->addIndexColumn()
+            ->addColumn('created_at', function ($row) {
+                return Carbon::parse($row->created_at)->translatedFormat('d F Y, H:i');
+            })
+            ->rawColumns(['created_at']) // jika ingin menampilkan HTML, tapi di sini optional
+            ->make(true);
     }
 }
