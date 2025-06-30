@@ -73,6 +73,12 @@
                         <div class="menu-title">Data Diagnosa</div>
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route('berita') }}">
+                        <div class="parent-icon"><i class='bx bx-list-check'></i></div>
+                        <div class="menu-title">Berita</div>
+                    </a>
+                </li>
                 @endif
 
                 {{-- Menu untuk pengajar --}}
@@ -216,6 +222,7 @@
     <!--plugins-->
     <script src="{{ asset('assets-admin/js/jquery.min.js') }}"></script>
     <script src="{{ asset('assets-admin/plugins/simplebar/js/simplebar.min.js') }}"></script>
+    <script src="{{ url('assets-admin') }}/plugins/ckeditor/ckeditor.js"></script>
     <script src="{{ asset('assets-admin/plugins/metismenu/js/metisMenu.min.js') }}"></script>
     <script src="{{ asset('assets-admin/plugins/perfect-scrollbar/js/perfect-scrollbar.js') }}"></script>
     <script src="{{ asset('assets-admin/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>

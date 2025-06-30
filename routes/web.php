@@ -7,11 +7,15 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\DiagnosaController;
 use App\Http\Controllers\MedisController;
 use App\Http\Controllers\MateriController;
+use App\Http\Controllers\BeritaController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/about', [HomeController::class, 'about'])->name('about');
+Route::get('/news', [HomeController::class, 'berita'])->name('news');
 Route::get('/gallery', [HomeController::class, 'gallery'])->name('gallery');
 Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
+Route::get('/detail-berita/{id}', [BeritaController::class, 'show'])->name('berita.show');
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -50,6 +54,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/berita', [BeritaController::class, 'index'])->name('berita');
+    Route::get('/berita/data', [BeritaController::class, 'data'])->name('berita.data');
+    Route::post('/berita', [BeritaController::class, 'store'])->name('berita.store');
+    Route::delete('/berita/{berita}', [BeritaController::class, 'destroy'])->name('berita.destroy');
 });
 
 require __DIR__ . '/auth.php';
