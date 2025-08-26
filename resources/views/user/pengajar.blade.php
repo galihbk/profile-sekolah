@@ -18,6 +18,7 @@
                     <tr>
                         <th>#</th>
                         <th>Nama</th>
+                        <th>Username</th>
                         <th>Email</th>
                         <th>Jenis Kelamin</th>
                         <th>Alamat</th>

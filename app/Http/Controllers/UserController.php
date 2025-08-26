@@ -53,12 +53,14 @@ class UserController extends Controller
         $validated = $request->validate([
             'fullName'         => 'required|string|max:255',
             'gender'           => 'required|in:Laki-laki,Perempuan',
-            'email'            => 'required|email|unique:users,email',
+            'email'            => 'required|email',
+            'username'            => 'required|unique:users,username',
             'password'         => 'required|min:6|confirmed',
             'address'          => 'required|string',
         ]);
         User::create([
             'name'     => $validated['fullName'],
+            'username'     => $validated['username'],
             'email'    => $validated['email'],
             'password' => bcrypt($validated['password']),
             'jenis_kelamin' => $validated['gender'],
