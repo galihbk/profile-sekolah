@@ -17,6 +17,7 @@ class UserSeeder extends Seeder
         User::create([
             'name' => 'Admin User',
             'email' => 'admin@example.com',
+            'username' => 'admin_sl',
             'password' => Hash::make('password'), // Ganti dengan password yang kuat
             'email_verified_at' => now(), // Opsional: untuk menandai email sudah diverifikasi
             'role' => 'admin',

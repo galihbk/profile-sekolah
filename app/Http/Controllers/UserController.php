@@ -23,11 +23,13 @@ class UserController extends Controller
             'placeOfBirth'     => 'required|string|max:255',
             'dateOfBirth'      => 'required|date',
             'gender'           => 'required|in:Laki-laki,Perempuan',
-            'email'            => 'required|email|unique:users,email',
+            'email'            => 'required|email',
+            'username'            => 'required|unique:users,username',
             'password'         => 'required|min:6|confirmed',
             'address'          => 'required|string',
         ]);
         User::create([
+            'username'     => $validated['username'],
             'name'     => $validated['fullName'],
             'email'    => $validated['email'],
             'password' => bcrypt($validated['password']),

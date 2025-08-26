@@ -10215,19 +10215,13 @@ h6,
 }
 
 .jumbotron {
-    background: linear-gradient(
-            rgba(40, 120, 235, 0.9),
-            rgba(40, 120, 235, 0.9)
-        ),
+    background: linear-gradient(rgba(18, 15, 45, 0.9), rgba(18, 15, 45, 0.9)),
         url(../img/hero.avif), no-repeat center center;
     background-size: cover;
 }
 
 .jumbotron.page-header {
-    background: linear-gradient(
-            rgba(40, 120, 235, 0.9),
-            rgba(40, 120, 235, 0.9)
-        ),
+    background: linear-gradient(rgba(18, 15, 45, 0.9), rgba(18, 15, 45, 0.9)),
         url(../img/hero.avif), no-repeat center center;
     background-size: cover;
 }

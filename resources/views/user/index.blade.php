@@ -18,6 +18,7 @@
                     <tr>
                         <th>#</th>
                         <th>Nama</th>
+                        <th>Username</th>
                         <th>Email</th>
                         <th>Tempat Lahir</th>
                         <th>Tanggal Lahir</th>
@@ -45,6 +46,10 @@
                     {
                         data: 'name',
                         name: 'name'
+                    },
+                    {
+                        data: 'username',
+                        name: 'username'
                     },
                     {
                         data: 'email',
