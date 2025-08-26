@@ -26,6 +26,7 @@ class User extends Authenticatable
         'tanggal_lahir',
         'jenis_kelamin',
         'alamat',
+        'role'
     ];
 
     /**
@@ -49,5 +50,9 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+    public function materi()
+    {
+        return $this->hasMany(Materi::class);
     }
 }

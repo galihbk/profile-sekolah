@@ -102,8 +102,38 @@
             </div>
         </div>
     </div>
-
-    <!-- Feature Start -->
+<div class="container-fluid py-5">
+        <div class="container py-5">
+            <div class="row mx-0 justify-content-center">
+                <div class="col-lg-8">
+                    <div class="section-title text-center position-relative mb-5">
+                        <h6 class="d-inline-block position-relative text-secondary text-uppercase pb-2">Berita / Informasi</h6>
+                        <h1 class="display-4">Informasi Dan Berita Terbaru</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                @foreach($beritaTerbaru as $berita)
+                <div class="col-lg-4 col-md-6 pb-4">
+                    <a class="courses-list-item position-relative d-block overflow-hidden mb-2" href="{{route('berita.show', $berita->id)}}">
+                        <img class="img-fluid" src="{{ asset('storage/image/' . $berita->image) }}" alt="">
+                        <div class="courses-text">
+                            <h4 class="text-center text-white px-3">{{ $berita->judul }}</h4>
+                            <div class="border-top w-100 mt-3">
+                        <div class="d-flex justify-content-between p-4">
+                            <span class="text-white">
+    <i class="fa fa-calendar mr-2"></i>
+    {{ \Carbon\Carbon::parse($berita->created_at)->translatedFormat('d F Y H:i') }}
+</span>
+                        </div>
+                    </div>
+                        </div>
+                    </a>
+                </div>
+                 @endforeach
+            </div>
+        </div>
+    </div>
 
 
 </x-guest-layout>

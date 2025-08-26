@@ -3,7 +3,7 @@
         <div class="card-body">
             <div class="row align-items-center">
                 <div class="col-lg-6 col-xl-6">
-                    <a href="{{ route('users.create') }}" class="btn btn-primary mb-3 mb-lg-0"><i class="bx bxs-plus-square"></i>Tambah Pengguna</a>
+                    <a href="{{ route('users.create') }}" class="btn btn-primary mb-3 mb-lg-0"><i class="bx bxs-plus-square"></i>Tambah Data Lansia</a>
                 </div>
             </div>
         </div>
