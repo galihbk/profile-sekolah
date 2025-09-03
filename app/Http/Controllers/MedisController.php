@@ -32,6 +32,19 @@ class MedisController extends Controller
             'tanggal_periksa' => 'required|date',
             'keluhan' => 'required|string',
             'tambahan' => 'nullable|string',
+            'gula_darah_tipe'  => ['nullable', 'in:puasa,jpp,sewaktu'],
+            'gula_darah_mg_dl' => ['nullable', 'integer', 'min:20', 'max:800'],
+
+            'kolesterol_mg_dl' => ['nullable', 'integer', 'min:50', 'max:1000'],
+            'asam_urat_mg_dl'  => ['nullable', 'numeric', 'min:0', 'max:20'],
+
+            'berat_kg'         => ['nullable', 'numeric', 'min:1', 'max:500'],
+            'tinggi_cm'        => ['nullable', 'numeric', 'min:30', 'max:300'],
+
+            'tensi_sistolik'   => ['nullable', 'integer', 'min:60', 'max:260'],
+            'tensi_diastolik'  => ['nullable', 'integer', 'min:30', 'max:180', 'lte:tensi_sistolik'],
+
+            'spo2'             => ['nullable', 'integer', 'min:50', 'max:100'],
         ]);
 
         $exists = Medis::where('user_id', $validated['user_id'])
@@ -43,7 +56,13 @@ class MedisController extends Controller
                 ->withInput()
                 ->withErrors(['tanggal_periksa' => 'Pasien sudah melakukan rekam medis pada tanggal ini.']);
         }
-
+        if (!empty($validated['berat_kg']) && !empty($validated['tinggi_cm'])) {
+            $m = (float) $validated['berat_kg'];
+            $t = (float) $validated['tinggi_cm'] / 100;
+            if ($t > 0) {
+                $validated['imt'] = round($m / ($t * $t), 2);
+            }
+        }
         Medis::create($validated);
 
         return redirect()->route('medis')->with('success', 'Rekam medis berhasil ditambahkan.');
