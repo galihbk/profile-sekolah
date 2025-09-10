@@ -8,6 +8,9 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class MedisController extends Controller
 {
@@ -69,61 +72,160 @@ class MedisController extends Controller
     }
     public function data()
     {
-        $data = Medis::with('user', 'diagnosa')->latest();
+        $q = Medis::query()
+            ->with(['user', 'diagnosa'])
+            ->latest();
 
-        return datatables()->of($data)
+        // 1) Batasi data untuk role=user
+        if (auth()->user()->role === 'user') {
+            $q->where('user_id', auth()->id());
+        }
+
+        return DataTables::of($q)
             ->addIndexColumn()
-            ->addColumn('name', fn($row) => $row->user->name)
-            ->addColumn('diagnosa', fn($row) => optional($row->diagnosa)->diagnosa ?? '-')
-            ->addColumn('umur', function ($row) {
-                if ($row->user->tanggal_lahir) {
-                    return \Carbon\Carbon::parse($row->user->tanggal_lahir)->age . ' tahun';
+            ->addColumn('name', fn($r) => $r->user->name ?? '-')
+            ->addColumn('diagnosa', fn($r) => optional($r->diagnosa)->diagnosa ?? '-')
+            ->addColumn('umur', function ($r) {
+                return $r->user?->tanggal_lahir
+                    ? Carbon::parse($r->user->tanggal_lahir)->age . ' tahun'
+                    : '-';
+            })
+            ->addColumn('jenis_kelamin', fn($r) => $r->user->jenis_kelamin ?? '-')
+
+            // 2) Aksi: Edit/Hapus hanya admin, Print selalu ada
+            ->addColumn('action', function ($r) {
+                $btnPrint = '<a href="' . route('medis.print.preview', $r->id) . '" class="btn btn-sm btn-info">Print</a>';
+
+
+                if (auth()->user()->role === 'admin') {
+                    $btnEdit = '<a href="' . route('medis.edit', $r->id) . '" class="btn btn-sm btn-warning me-1">Edit</a>';
+                    $btnDelete = '<form action="' . route('medis.destroy', $r->id) . '" method="POST" style="display:inline-block;margin-left:4px;">
+            ' . csrf_field() . method_field('DELETE') . '
+            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm(\'Yakin ingin menghapus?\')">Hapus</button>
+        </form>';
+                    return $btnEdit . $btnDelete . ' ' . $btnPrint;
                 }
-                return '-';
-            })
-            ->addColumn('jenis_kelamin', function ($row) {
-                return $row->user->jenis_kelamin ?? '-';
-            })
-            ->addColumn('action', function ($row) {
-                return '
-                <a href="' . route('users.edit', $row->id) . '" class="btn btn-sm btn-warning">Edit</a>
-                <form action="' . route('users.destroy', $row->id) . '" method="POST" style="display:inline-block;">
-                    ' . csrf_field() . method_field('DELETE') . '
-                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm(\'Yakin ingin menghapus?\')">Hapus</button>
-                </form>
-            ';
+                return $btnPrint;
             })
             ->rawColumns(['action'])
             ->make(true);
     }
 
-    public function destroy(Medis $medis)
+    public function edit(Medis $medis)
     {
-        $medis->delete();
+        abort_if(auth()->user()->role !== 'admin', 403);
 
-        return response()->json(['success' => true, 'message' => 'Rekam medis berhasil dihapus']);
+        $medis->load(['user', 'diagnosa']); // agar akses relasi lancar
+        $diagnosa = \App\Models\Diagnosa::select('id', 'diagnosa')->get();
+
+        // data tampil untuk header form
+        $ttl = trim(($medis->user->tempat_lahir ?? '') . ', ' . (
+            $medis->user->tanggal_lahir
+            ? Carbon::parse($medis->user->tanggal_lahir)->locale('id')->translatedFormat('d F Y')
+            : ''
+        ), ', ');
+
+        $umur = $medis->user->tanggal_lahir
+            ? Carbon::parse($medis->user->tanggal_lahir)->age . ' tahun'
+            : '';
+
+        return view('medis.edit', compact('medis', 'diagnosa', 'ttl', 'umur'));
     }
     public function update(Request $request, Medis $medis)
     {
+        abort_if(auth()->user()->role !== 'admin', 403);
+
         $validated = $request->validate([
-            'user_id' => 'required|exists:users,id',
-            'diagnosa_id' => 'nullable|exists:diagnosas,id',
-            'tanggal_periksa' => 'required|date',
-            'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
-            'umur' => 'required|integer|min:0',
-            'keluhan' => 'required|string',
-            'tambahan' => 'nullable|string',
+            'diagnosa_id'        => 'nullable|exists:diagnosas,id',
+            'tanggal_periksa'    => 'required|date',
+            'keluhan'            => 'nullable|string',
+            'tambahan'           => 'nullable|string',
+            'gula_darah_mg_dl'   => 'nullable|numeric',
+            'gula_darah_tipe'    => 'nullable|in:puasa,jpp,sewaktu',
+            'kolesterol_mg_dl'   => 'nullable|numeric',
+            'asam_urat_mg_dl'    => 'nullable|numeric',
+            'berat_kg'           => 'nullable|numeric',
+            'tinggi_cm'          => 'nullable|numeric',
+            'imt'                => 'nullable|numeric',
+            'tensi_sistolik'     => 'nullable|numeric',
+            'tensi_diastolik'    => 'nullable|numeric',
+            'spo2'               => 'nullable|numeric',
         ]);
 
         $medis->update($validated);
 
-        return redirect()->route('medis.index')->with('success', 'Rekam medis berhasil diperbarui.');
+        return redirect()->route('medis')->with('success', 'Rekam medis berhasil diupdate.');
+    }
+    public function destroy(Medis $medis)
+    {
+        abort_if(auth()->user()->role !== 'admin', 403);
+
+        $medis->delete();
+
+        return back()->with('success', 'Rekam medis berhasil dihapus.');
+    }
+    private function paperFrom(Request $request)
+    {
+        // A4 default; F4 (210x330mm) = 595.28 x 935.43 pt
+        $paper = $request->get('paper', 'A4');
+        if (strtoupper($paper) === 'F4') return [0, 0, 595.28, 935.43];
+        return 'A4';
+    }
+
+    public function printPreview(Medis $medis, Request $request)
+    {
+        // admin boleh semua; user hanya miliknya
+        $user = auth()->user();
+        abort_if($user->role === 'user' && $medis->user_id !== $user->id, 403);
+
+        $medis->load(['user', 'diagnosa']);
+        $umur = $medis->user?->tanggal_lahir ? Carbon::parse($medis->user->tanggal_lahir)->age . ' tahun' : '-';
+        $tanggal = $medis->tanggal_periksa ? Carbon::parse($medis->tanggal_periksa)->locale('id')->translatedFormat('d F Y') : '-';
+
+        // Halaman HTML yang menampilkan iframe
+        return view('medis.print-preview', compact('medis', 'umur', 'tanggal'));
+    }
+
+    public function printStream(Medis $medis, Request $request)
+    {
+        $user = auth()->user();
+        abort_if($user->role === 'user' && $medis->user_id !== $user->id, 403);
+
+        $medis->load(['user', 'diagnosa']);
+        $umur = $medis->user?->tanggal_lahir ? Carbon::parse($medis->user->tanggal_lahir)->age . ' tahun' : '-';
+        $tanggal = $medis->tanggal_periksa ? Carbon::parse($medis->tanggal_periksa)->locale('id')->translatedFormat('d F Y') : '-';
+
+        $paper = $this->paperFrom($request);
+
+        $pdf = Pdf::loadView('medis.pdf', compact('medis', 'umur', 'tanggal'))
+            ->setPaper($paper, 'portrait');
+
+        // stream inline utk <iframe>
+        return $pdf->stream('rekam-medis.pdf');
+    }
+
+    public function printDownload(Medis $medis, Request $request)
+    {
+        $user = auth()->user();
+        abort_if($user->role === 'user' && $medis->user_id !== $user->id, 403);
+
+        $medis->load(['user', 'diagnosa']);
+        $umur = $medis->user?->tanggal_lahir ? Carbon::parse($medis->user->tanggal_lahir)->age . ' tahun' : '-';
+        $tanggal = $medis->tanggal_periksa ? Carbon::parse($medis->tanggal_periksa)->locale('id')->translatedFormat('d F Y') : '-';
+
+        $paper = $this->paperFrom($request);
+
+        $pdf = Pdf::loadView('medis.pdf', compact('medis', 'umur', 'tanggal'))
+            ->setPaper($paper, 'portrait');
+
+        $filename = 'Rekam_Medis_' . $medis->user?->name . '_' . now()->format('Ymd_His') . '.pdf';
+        return $pdf->download($filename);
     }
     public function autocomplete(Request $request)
     {
         $query = $request->get('query');
 
-        $users = User::where('name', 'like', "%{$query}%")->get();
+        $users = User::where('name', 'like', "%{$query}%")->where('role', 'user')->get();
 
         return response()->json($users);
     }

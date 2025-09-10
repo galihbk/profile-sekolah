@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -72,8 +73,8 @@ class UserController extends Controller
     public function data(Request $request)
     {
         if ($request->ajax()) {
-            $data = User::where('role', 'user')->get();
-            return DataTables::of($data)
+            $query = User::query()->where('role', 'user'); // <- query(), bukan get()
+            return DataTables::of($query)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
                     return '
@@ -88,6 +89,49 @@ class UserController extends Controller
                 ->make(true);
         }
     }
+    public function edit(User $user)
+    {
+        // Pastikan ini bukan pengajar
+        abort_if($user->role !== 'user', 404);
+        return view('user.edit', compact('user'));
+    }
+
+    public function update(Request $request, User $user)
+    {
+        abort_if($user->role !== 'user', 404);
+
+        // Normalisasi supaya konsisten
+        $request->merge([
+            'email'    => strtolower(trim($request->email)),
+            'username' => trim($request->username),
+        ]);
+
+        // NOTE: email TIDAK unique (hanya format)
+        $validated = $request->validate([
+            'fullName'     => 'required|string|max:255',
+            'placeOfBirth' => 'required|string|max:255',
+            'dateOfBirth'  => 'required|date',
+            'gender'       => 'required|in:Laki-laki,Perempuan',
+            'email'        => 'required|email', // <- tidak pakai unique
+            'username'     => ['required', \Illuminate\Validation\Rule::unique('users', 'username')->ignore($user->id)],
+            'password'     => 'nullable|min:6|confirmed',
+            'address'      => 'required|string',
+        ]);
+
+        $user->name           = $validated['fullName'];
+        $user->username       = $validated['username'];
+        $user->email          = $validated['email'];
+        $user->tempat_lahir   = $validated['placeOfBirth'];
+        $user->tanggal_lahir  = $validated['dateOfBirth'];
+        $user->jenis_kelamin  = $validated['gender'];
+        $user->alamat         = $validated['address'];
+        if (!empty($validated['password'])) {
+            $user->password = bcrypt($validated['password']);
+        }
+        $user->save();
+
+        return redirect()->route('users.index')->with('success', 'Data user berhasil diupdate');
+    }
     public function dataPengajar(Request $request)
     {
         if ($request->ajax()) {
@@ -96,12 +140,12 @@ class UserController extends Controller
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
                     return '
-                    <a href="' . route('users.edit', $row->id) . '" class="btn btn-sm btn-warning">Edit</a>
-                    <form action="' . route('users.destroy', $row->id) . '" method="POST" style="display:inline-block;">
-                        ' . csrf_field() . method_field('DELETE') . '
-                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm(\'Yakin ingin menghapus?\')">Hapus</button>
-                    </form>
-                ';
+        <a href="' . route('users.editPengajar', $row->id) . '" class="btn btn-sm btn-warning">Edit</a>
+        <form action="' . route('users.destroy', $row->id) . '" method="POST" style="display:inline-block;">
+            ' . csrf_field() . method_field('DELETE') . '
+            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm(\'Yakin ingin menghapus?\')">Hapus</button>
+        </form>
+    ';
                 })
                 ->rawColumns(['action'])
                 ->make(true);
@@ -112,5 +156,41 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $user->delete();
         return back()->with('success', 'Pengguna berhasil dihapus.');
+    }
+    public function editPengajar(User $user)
+    {
+        abort_if($user->role !== 'pengajar', 404);
+        return view('user.edit-pengajar', compact('user'));
+    }
+
+    public function updatePengajar(Request $request, User $user)
+    {
+        abort_if($user->role !== 'pengajar', 404);
+
+        $request->merge([
+            'email'    => strtolower(trim($request->email)),
+            'username' => trim($request->username),
+        ]);
+
+        $validated = $request->validate([
+            'fullName' => 'required|string|max:255',
+            'gender'   => ['nullable', Rule::in(['Laki-laki', 'Perempuan'])],
+            'email'    => 'required|email',
+            'username' => ['required', Rule::unique('users', 'username')->ignore($user->id)],
+            'password' => 'nullable|min:6|confirmed',
+            'address'  => 'nullable|string',
+        ]);
+
+        $user->name         = $validated['fullName'];
+        $user->username     = $validated['username'];
+        $user->email        = $validated['email'];
+        if (!empty($validated['password'])) {
+            $user->password = bcrypt($validated['password']);
+        }
+        if (!empty($validated['gender']))  $user->jenis_kelamin = $validated['gender'];
+        if (!empty($validated['address'])) $user->alamat        = $validated['address'];
+        $user->save();
+
+        return redirect()->route('users.pengajar')->with('success', 'Pengajar berhasil diupdate');
     }
 }

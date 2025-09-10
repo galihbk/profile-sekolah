@@ -34,10 +34,39 @@ class DiagnosaController extends Controller
         return DataTables::of($data)
             ->addIndexColumn()
             ->addColumn('action', function ($row) {
-                return '<a href="#" class="btn btn-sm btn-warning">Edit</a> 
-                        <a href="#" class="btn btn-sm btn-danger">Hapus</a>';
+                return '
+        <button type="button" 
+            class="btn btn-sm btn-warning btn-edit" 
+            data-id="' . $row->id . '" 
+            data-diagnosa="' . $row->diagnosa . '" 
+            data-anjuran="' . $row->anjuran . '" 
+            data-pantangan="' . $row->pantangan . '">
+            Edit
+        </button>
+        <button type="button" data-id="' . $row->id . '" class="btn btn-sm btn-danger btn-hapus">Hapus</button>
+    ';
             })
             ->rawColumns(['action'])
             ->make(true);
+    }
+    public function destroy($id)
+    {
+        $diagnosa = Diagnosa::findOrFail($id);
+        $diagnosa->delete();
+
+        return response()->json(['success' => 'Diagnosa berhasil dihapus.']);
+    }
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'diagnosa' => 'required|string|max:255',
+            'anjuran'  => 'required|string',
+            'pantangan' => 'required|string',
+        ]);
+
+        $diag = Diagnosa::findOrFail($id);
+        $diag->update($request->only('diagnosa', 'anjuran', 'pantangan'));
+
+        return redirect()->route('diagnosa')->with('success', 'Diagnosa berhasil diupdate.');
     }
 }

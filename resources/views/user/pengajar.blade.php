@@ -46,6 +46,10 @@
                         name: 'name'
                     },
                     {
+                        data: 'username',
+                        name: 'username'
+                    },
+                    {
                         data: 'email',
                         name: 'email'
                     },

@@ -76,6 +76,47 @@
     @push('scripts')
         <script>
             $(function() {
+                $(document).on('click', '.btn-hapus', function() {
+                    var id = $(this).data('id');
+                    if (confirm("Yakin ingin menghapus diagnosa ini?")) {
+                        $.ajax({
+                            url: "/diagnosa/" + id,
+                            type: "DELETE",
+                            data: {
+                                _token: "{{ csrf_token() }}"
+                            },
+                            success: function(res) {
+                                alert(res.success);
+                                $('#users-table').DataTable().ajax.reload();
+                            },
+                            error: function(xhr) {
+                                alert("Gagal menghapus data!");
+                            }
+                        });
+                    }
+                });
+                $(document).on('click', '.btn-edit', function() {
+                    const id = $(this).data('id');
+                    $('input[name="diagnosa"]').val($(this).data('diagnosa'));
+                    $('textarea[name="anjuran"]').val($(this).data('anjuran'));
+                    $('textarea[name="pantangan"]').val($(this).data('pantangan'));
+
+                    // bersihkan _method lama agar tidak dobel
+                    $('#formTambahDiagnosa input[name="_method"]').remove();
+
+                    // set action ke route update + spoof PUT
+                    $('#formTambahDiagnosa').attr('action', '/diagnosa/' + id);
+                    $('#formTambahDiagnosa').append('<input type="hidden" name="_method" value="PUT">');
+
+                    new bootstrap.Modal('#addDiagnosaModal').show();
+                });
+
+                // reset ke mode tambah saat modal ditutup
+                $('#addDiagnosaModal').on('hidden.bs.modal', function() {
+                    $('#formTambahDiagnosa')[0].reset();
+                    $('#formTambahDiagnosa').attr('action', "{{ route('diagnosa.store') }}");
+                    $('#formTambahDiagnosa input[name="_method"]').remove();
+                });
                 $('#users-table').DataTable({
                     processing: true,
                     serverSide: true,

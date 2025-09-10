@@ -49,7 +49,14 @@
                         },
                         {
                             data: 'tanggal_periksa',
-                            name: 'tanggal_periksa'
+                            name: 'tanggal_periksa',
+                            render: function(data) {
+                                if (!data) return '';
+                                // ambil YYYY-MM-DD di awal string agar aman dari timezone
+                                const m = String(data).match(/^(\d{4})-(\d{2})-(\d{2})/);
+                                if (!m) return data;
+                                return `${m[3]}/${m[2]}/${m[1]}`; // 10/09/2025
+                            }
                         },
                         {
                             data: 'jenis_kelamin',
@@ -57,7 +64,22 @@
                         },
                         {
                             data: 'umur',
-                            name: 'umur'
+                            name: 'umur',
+                            render: function(data, type, row) {
+                                // kalau server belum kirim umur, hitung dari row.tanggal_lahir
+                                if (data) return data;
+                                const birth = row.tanggal_lahir;
+                                if (!birth) return '';
+                                const mm = String(birth).match(/^(\d{4})-(\d{2})-(\d{2})/);
+                                if (!mm) return '';
+                                const d = new Date(parseInt(mm[1]), parseInt(mm[2]) - 1, parseInt(mm[
+                                    3]));
+                                const today = new Date();
+                                let age = today.getFullYear() - d.getFullYear();
+                                const mth = today.getMonth() - d.getMonth();
+                                if (mth < 0 || (mth === 0 && today.getDate() < d.getDate())) age--;
+                                return `${age} tahun`;
+                            }
                         },
                         {
                             data: 'keluhan',
@@ -75,6 +97,7 @@
                         },
                     ]
                 });
+
             });
         </script>
     @endpush
