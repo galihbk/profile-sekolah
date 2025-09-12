@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <title>Rekam Medis</title>
 <style>
-  @page { margin: 24mm 18mm; } /* margin cetak */
+  @page { margin: 24mm 18mm; }
   * { box-sizing: border-box; }
   body { font-family: DejaVu Sans, sans-serif; color:#111; background:#fff; font-size:12pt; }
   .title { font-weight:800; font-size:16pt; margin-bottom:10pt; }
@@ -16,6 +16,7 @@
   ul { margin:6pt 0 0 14pt; padding:0; }
   li { margin:4pt 0; }
   .muted { color:#666; }
+  .ttd { margin-top:60pt; text-align:right; }
 </style>
 </head>
 <body>
@@ -66,6 +67,14 @@
   <div class="section">Catatan Dokter/Perawat</div>
   <div class="card">
     <div class="muted" style="min-height:60pt">{!! nl2br(e($medis->tambahan ?? '..........................................................')) !!}</div>
+  </div>
+
+  <!-- Blok Tanda Tangan -->
+  <div class="ttd">
+    <div>Brebes, {{ \Carbon\Carbon::now()->translatedFormat('d F Y') }}</div>
+    <br><br><br>
+    <div>(........................................)</div>
+    <div class="muted">Nama & Tanda Tangan</div>
   </div>
 </body>
 </html>

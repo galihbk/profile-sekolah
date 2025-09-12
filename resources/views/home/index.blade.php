@@ -33,16 +33,25 @@
                         </h6>
                         <h1 class="display-5">Sekolah Lansia Matahari</h1>
                     </div>
-                    <p>Sekolah Lansia “Matahari” di Desa Sridadi Sirampog didirikan pada 22 juli tahun 2022 Sebagai
+                    <p class="text-justify-custom">
+                        Sekolah Lansia “Matahari” di Desa Sridadi Sirampog didirikan pada 22 juli tahun 2022 Sebagai
                         salah satu kepedulian dari Dinas Pemberdayaan Perempuan Perlindungan Anak Pengendalian Penduduk
                         dan Keluarga Berencana (DP3KB) Kabupaten Brebes melalui kurikulum dimensi lansia Tangguh
                         diantaranya adalah antara lain dimensi spiritual, dimensi intelektual, dimensi fisik, dimensi
                         emosional, dimensi sosial kemasyarakatan, dimensi profesional dan vokasional, dan dimensi
-                        lingkungan, sehingga lansia diharapkan menjadi pintar.</p>
+                        lingkungan, sehingga lansia diharapkan menjadi pintar.
+                    </p>
                 </div>
             </div>
         </div>
     </div>
+
+    <style>
+        .text-justify-custom {
+            text-align: justify;
+        }
+    </style>
+
     <!-- About End -->
 
 
@@ -102,35 +111,37 @@
             </div>
         </div>
     </div>
-<div class="container-fluid py-5">
+    <div class="container-fluid py-5">
         <div class="container py-5">
             <div class="row mx-0 justify-content-center">
                 <div class="col-lg-8">
                     <div class="section-title text-center position-relative mb-5">
-                        <h6 class="d-inline-block position-relative text-secondary text-uppercase pb-2">Berita / Informasi</h6>
+                        <h6 class="d-inline-block position-relative text-secondary text-uppercase pb-2">Berita /
+                            Informasi</h6>
                         <h1 class="display-4">Informasi Dan Berita Terbaru</h1>
                     </div>
                 </div>
             </div>
             <div class="row">
-                @foreach($beritaTerbaru as $berita)
-                <div class="col-lg-4 col-md-6 pb-4">
-                    <a class="courses-list-item position-relative d-block overflow-hidden mb-2" href="{{route('berita.show', $berita->id)}}">
-                        <img class="img-fluid" src="{{ asset('storage/image/' . $berita->image) }}" alt="">
-                        <div class="courses-text">
-                            <h4 class="text-center text-white px-3">{{ $berita->judul }}</h4>
-                            <div class="border-top w-100 mt-3">
-                        <div class="d-flex justify-content-between p-4">
-                            <span class="text-white">
-    <i class="fa fa-calendar mr-2"></i>
-    {{ \Carbon\Carbon::parse($berita->created_at)->translatedFormat('d F Y H:i') }}
-</span>
-                        </div>
+                @foreach ($beritaTerbaru as $berita)
+                    <div class="col-lg-4 col-md-6 pb-4">
+                        <a class="courses-list-item position-relative d-block overflow-hidden mb-2"
+                            href="{{ route('berita.show', $berita->id) }}">
+                            <img class="img-fluid" src="{{ asset('storage/image/' . $berita->image) }}" alt="">
+                            <div class="courses-text">
+                                <h4 class="text-center text-white px-3">{{ $berita->judul }}</h4>
+                                <div class="border-top w-100 mt-3">
+                                    <div class="d-flex justify-content-between p-4">
+                                        <span class="text-white">
+                                            <i class="fa fa-calendar mr-2"></i>
+                                            {{ \Carbon\Carbon::parse($berita->created_at)->translatedFormat('d F Y H:i') }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
                     </div>
-                        </div>
-                    </a>
-                </div>
-                 @endforeach
+                @endforeach
             </div>
         </div>
     </div>

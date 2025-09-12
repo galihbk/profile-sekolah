@@ -74,6 +74,7 @@
                 <div class="navbar-nav mx-auto py-0">
                     <a href="{{ route('home') }}" class="nav-item nav-link active">Beranda</a>
                     <a href="{{ route('about') }}" class="nav-item nav-link">Tentang Kami</a>
+                    <a href="{{ route('struktur') }}" class="nav-item nav-link">Stuktur Organisasi</a>
                     <a href="{{ route('gallery') }}" class="nav-item nav-link">Galeri</a>
                     <a href="{{route('contact')}}" class="nav-item nav-link">Kontak</a>
                     <a href="{{route('news')}}" class="nav-item nav-link">Berita / Informasi</a>

@@ -81,14 +81,12 @@
                 @endif
 
                 {{-- Pengajar: upload materi --}}
-                @if(Auth::user()->role === 'pengajar')
                     <li>
                         <a href="{{ route('materi') }}">
                             <div class="parent-icon"><i class='bx bx-folder'></i></div>
                             <div class="menu-title">Data Materi</div>
                         </a>
                     </li>
-                @endif
 
                 {{-- User: hanya Dashboard + Data Medis (history pribadi) --}}
                 @if(Auth::user()->role === 'user')

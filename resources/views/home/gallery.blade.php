@@ -12,29 +12,31 @@
     </div>
     <!-- Header End -->
 
-
-
     <div class="container-fluid py-5">
         <div class="container py-5">
             <div class="row">
                 <div class="col-md-4 mb-4">
-                    <img src="{{ asset('assets/img/about-page.jpeg') }}" class="img-fluid" alt="">
+                    <img src="{{ asset('assets/img/about-page.jpeg') }}" class="img-fluid gallery-img" alt="">
                 </div>
                 <div class="col-md-4 mb-4">
-                    <img src="{{ asset('assets/img/WhatsApp Image 2025-05-25 at 20.40.23.jpeg') }}" class="img-fluid"
-                        alt="">
+                    <img src="{{ asset('assets/img/WhatsApp Image 2025-05-25 at 20.40.23.jpeg') }}" class="img-fluid gallery-img" alt="">
                 </div>
                 <div class="col-md-4 mb-4">
-                    <img src="{{ asset('assets/img/WhatsApp Image 2025-05-25 at 20.40.25 (1).jpeg') }}"
-                        class="img-fluid" alt="">
+                    <img src="{{ asset('assets/img/WhatsApp Image 2025-05-25 at 20.40.25 (1).jpeg') }}" class="img-fluid gallery-img" alt="">
                 </div>
                 <div class="col-md-4 mb-4">
-                    <img src="{{ asset('assets/img/WhatsApp Image 2025-05-25 at 20.40.29.jpeg') }}" class="img-fluid"
-                        alt="">
+                    <img src="{{ asset('assets/img/WhatsApp Image 2025-05-25 at 20.40.29.jpeg') }}" class="img-fluid gallery-img" alt="">
                 </div>
             </div>
         </div>
     </div>
 
-
+    <style>
+        .gallery-img {
+            width: 100%;
+            height: 250px; /* atur tinggi sesuai kebutuhan, misalnya 250px */
+            object-fit: cover; /* menjaga proporsi, crop bagian lebih */
+            border-radius: 8px; /* opsional, biar lebih rapi */
+        }
+    </style>
 </x-guest-layout>

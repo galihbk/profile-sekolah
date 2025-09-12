@@ -20,6 +20,7 @@ Route::get('/',                [HomeController::class, 'index'])->name('home');
 Route::get('/about',           [HomeController::class, 'about'])->name('about');
 Route::get('/news',            [HomeController::class, 'berita'])->name('news');
 Route::get('/gallery',         [HomeController::class, 'gallery'])->name('gallery');
+Route::get('/struktur',         [HomeController::class, 'struktur'])->name('struktur');
 Route::get('/contact',         [HomeController::class, 'contact'])->name('contact');
 Route::get('/detail-berita/{id}', [BeritaController::class, 'show'])->name('berita.show');
 
@@ -59,11 +60,11 @@ Route::middleware('auth')->group(function () {
     | ADMIN ONLY
     |----------------------------------------------------------------------
     */
+    Route::get('/medis/data',       [MedisController::class, 'data'])->name('medis.data');
     Route::middleware('role:admin')->group(function () {
 
         // -------- Data Medis (kelola semua)
         Route::get('/medis',            [MedisController::class, 'index'])->name('medis');
-        Route::get('/medis/data',       [MedisController::class, 'data'])->name('medis.data');
         Route::get('/medis/create',     [MedisController::class, 'create'])->name('medis.create');
         Route::post('/medis/add',       [MedisController::class, 'store'])->name('medis.store');
         Route::get('/medis/{medis}/edit', [MedisController::class, 'edit'])->name('medis.edit');
@@ -111,8 +112,8 @@ Route::middleware('auth')->group(function () {
     | PENGAJAR ONLY (upload materi)
     |----------------------------------------------------------------------
     */
+    Route::get('/materi',        [MateriController::class, 'index'])->name('materi');        // list + modal upload
     Route::middleware('role:pengajar')->group(function () {
-        Route::get('/materi',        [MateriController::class, 'index'])->name('materi');        // list + modal upload
         Route::get('/materi/data',   [MateriController::class, 'data'])->name('materi.data');    // DataTables (materi saya)
         Route::post('/materi/add',   [MateriController::class, 'store'])->name('materi.store');  // upload
         Route::delete('/materi/{material}', [MateriController::class, 'destroy'])->name('materi.destroy');
@@ -123,10 +124,10 @@ Route::middleware('auth')->group(function () {
     | USER ONLY (lihat history & materi)
     |----------------------------------------------------------------------
     */
+    Route::get('/materi/dataMateri',   [MateriController::class, 'dataMateri'])->name('materi.dataMateri'); // DataTables materi user
     Route::middleware('role:user')->group(function () {
         Route::get('/history',             [MedisController::class, 'history'])->name('medis.history'); // rekam medis milik user
         Route::get('/materi/user',         [MateriController::class, 'materiUser'])->name('materi.user'); // list materi untuk user
-        Route::get('/materi/dataMateri',   [MateriController::class, 'dataMateri'])->name('materi.dataMateri'); // DataTables materi user
     });
 });
 

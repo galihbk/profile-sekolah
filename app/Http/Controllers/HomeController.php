@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Berita;
+
 class HomeController extends Controller
 {
     public function index()
-{
-    $beritaTerbaru = Berita::orderBy('created_at', 'desc')->take(3)->get();
-    return view('home.index', compact('beritaTerbaru'));
-}
+    {
+        $beritaTerbaru = Berita::orderBy('created_at', 'desc')->take(3)->get();
+        return view('home.index', compact('beritaTerbaru'));
+    }
     public function about()
     {
         return view('home.about');
@@ -19,7 +20,7 @@ class HomeController extends Controller
     public function berita()
     {
         $beritaTerbaru = Berita::orderBy('created_at', 'desc')->get();
-        return view('home.berita',compact('beritaTerbaru'));
+        return view('home.berita', compact('beritaTerbaru'));
     }
     public function contact()
     {
@@ -28,5 +29,9 @@ class HomeController extends Controller
     public function gallery()
     {
         return view('home.gallery');
+    }
+    public function struktur()
+    {
+        return view('home.struktur');
     }
 }
